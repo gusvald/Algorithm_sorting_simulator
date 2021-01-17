@@ -1,33 +1,33 @@
 #include "Data_generator.h"
 
-Data_generator::Data_generator(int quantityPages, int quantityFrames, bool read): quantityPages(quantityPages), quantityFrames(quantityFrames), read(read) {
+Data_generator::Data_generator(int quantityPages, int quantityFrames, std::string mode ): how_m_pages(quantityPages), how_m_frames(quantityFrames), mode(mode) {
 
-    if(read){
-        loadData();
-        initFrames();
+    if(mode == "R"){
+        lData();
+        iFrames();
     }
-    if(!read){
-        generator();
-        saveInitialData();
-        initFrames();
+    if(mode == "G"){
+        creator();
+        sIData();
+        iFrames();
     }
 }
-void Data_generator::generator(){
+void Data_generator::creator(){
     Page page;
 
-    for(int i=0;i<quantityPages; i++){
+    for(int i=0; i < how_m_pages; i++){
         page.count= rand()%9+1;
         pagesList.push_back(page);
     }
 }
-void Data_generator::initFrames(){
+void Data_generator::iFrames(){
     Page frame;
-    for(int j=quantityFrames;j>0; j--){
+    for(int j=how_m_frames; j > 0; j--){
         frame.timeWithoutChange=j;
-        frames.push_back(frame);
+        Qframe.push_back(frame);
     }
 }
-void Data_generator::saveInitialData() {
+void Data_generator::sIData() {
     std::fstream file1;
 
     file1.open("../pagesList.txt", std::ios::out);
@@ -37,7 +37,7 @@ void Data_generator::saveInitialData() {
     }
     file1.close();
 }
-void Data_generator::loadData(){
+void Data_generator::lData(){
     std::fstream file1;
     std::fstream file2;
     Page page;
@@ -68,7 +68,7 @@ void Data_generator::loadData(){
     file2.close();
 }
 
-void Data_generator::saveData(){
+void Data_generator::sData(){
     unsigned long countFile1=0;
     std::fstream file1;
     std::fstream file2;
@@ -90,26 +90,26 @@ void Data_generator::saveData(){
     }
     result << std::endl << std::endl;
 
-    for(unsigned long i=0; i<sorted.size(); i++){
-        result<<sorted.at(i)<<std::endl;
+    for(unsigned long i=0; i < results.size(); i++){
+        result << results.at(i) << std::endl;
     }
     result<<std::endl;
 
-    result << "Zmiany: " << changes;
+    result << "Zmiany: " << how_m_changes;
 
     result.close();
 }
 
-void Data_generator::initSaveData() {
-    saveData();
+void Data_generator::beginSaving() {
+    sData();
 }
 
-void Data_generator::saveFrames() {
+void Data_generator::sFrames() {
     std::string frame;
-    for(unsigned long i=0; i<frames.size(); i++){
-        frame += "|" + std::to_string(frames.at(i).count) + "|";
+    for(unsigned long i=0; i < Qframe.size(); i++){
+        frame += "|" + std::to_string(Qframe.at(i).count) + "|";
     }
-    sorted.push_back(frame);
+    results.push_back(frame);
 }
 
 Data_generator::~Data_generator() {

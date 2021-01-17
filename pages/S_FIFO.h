@@ -5,13 +5,13 @@
 
 class S_FIFO {
 public:
-    explicit S_FIFO(Data_generator &stack);
-    void sort(Data_generator &stack);
+    explicit S_FIFO(Data_generator &object);
+    void sorting(Data_generator &object);
     ~S_FIFO();
 private:
-    Data_generator &stack;
+    Data_generator &object;
 
-    int minTime();
+    int mTime();
 };
 
 

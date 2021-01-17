@@ -13,34 +13,34 @@
 
 class Data_generator {
 public:
-    Data_generator(int quantityPages,int quantityFrames,bool read);
+    Data_generator(int quantityPages,int quantityFrames,std::string mode);
     std::vector < Page > pagesList;
-    std::vector < Page > frames;
-    std::vector <std::string> sorted;
+    std::vector < Page > Qframe;
+    std::vector <std::string> results;
 
-    int changes;
+    int how_m_changes;
 
-    void initSaveData();
+    void beginSaving();
 
-    void saveFrames();
+    void sFrames();
 
     ~Data_generator();
 private:
-    int quantityPages;
+    int how_m_pages;
 
-    int quantityFrames;
+    int how_m_frames;
 
-    bool read;
+    std::string mode;
 
-    void loadData();
+    void lData();
 
-    void generator();
+    void creator();
 
-    void saveInitialData();
+    void sIData();
 
-    void saveData();
+    void sData();
 
-    void initFrames();
+    void iFrames();
 };
 
 

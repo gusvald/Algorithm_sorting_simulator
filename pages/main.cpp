@@ -4,7 +4,6 @@
 #include "Data_generator.h"
 #include "S_FIFO.h"
 #include "S_LRU.h"
-#include <locale.h>
 
 enum algorythmChooser {
     FIFO = 0,
@@ -13,99 +12,55 @@ enum algorythmChooser {
 
 algorythmChooser whichAlgorythm;
 
-Data_generator menu();
-
 int main() {
     srand( static_cast<unsigned int>(time(nullptr)));
-    setlocale(LC_CTYPE, "Polish");
 
-    Data_generator stack=menu();
+    Data_generator object(1000,5,"R");
 
-    S_FIFO fifo(stack);
+    S_FIFO fifo(object);
 
-    S_LRU lru(stack);
+    S_LRU lru(object);
 
-    for(unsigned long i=0; i<stack.frames.size(); i++){
-        if(stack.frames.at(i).count!=stack.pagesList.begin()->count){
-        stack.frames.at(i).count=stack.pagesList.begin()->count;
+    for(unsigned long i=0; i<object.Qframe.size(); i++){
+        if(object.Qframe.at(i).count != object.pagesList.begin()->count){
+        object.Qframe.at(i).count=object.pagesList.begin()->count;
         }
-        stack.pagesList.erase(stack.pagesList.begin());
+        object.pagesList.erase(object.pagesList.begin());
     }
 
-    stack.saveFrames();
+    object.sFrames();
 
-    for(unsigned long i=0; i<stack.frames.size(); i++){
-        std::cout<<"|"<<stack.frames.at(i).count<<"|";
+    for(unsigned long i=0; i<object.Qframe.size(); i++){
+        std::cout << "|" << object.Qframe.at(i).count << "|";
     }
 
     std::cout<<std::endl;
 
-    while(!stack.pagesList.empty()) {
+    while(!object.pagesList.empty()) {
 
         if (whichAlgorythm == FIFO) {
-            fifo.sort(stack);
+            fifo.sorting(object);
         }
         if (whichAlgorythm == LRU) {
-            lru.sort(stack);
+            lru.sorting(object);
         }
 
-        for(unsigned long i=0; i<stack.frames.size(); i++){
-            stack.frames.at(i).timeWithoutChange++;
+        for(unsigned long i=0; i<object.Qframe.size(); i++){
+            object.Qframe.at(i).timeWithoutChange++;
         }
 
-        stack.saveFrames();
+        object.sFrames();
 
-        for(unsigned long i=0; i<stack.frames.size(); i++){
-            std::cout<<"|"<<stack.frames.at(i).count<<"|";
+        for(unsigned long i=0; i<object.Qframe.size(); i++){
+            std::cout << "|" << object.Qframe.at(i).count << "|";
         }
 
         std::cout<<std::endl;
     }
 
-    stack.initSaveData();
+    object.beginSaving();
 
     return 0;
-
 }
 
-Data_generator menu(){
-    bool status;
-    std::string g;
-    std::string a;
-    int counter_pages=0;
-    int counter_frames=0;
-
-    while(g != "R" && g != "G")  {
-        std::cout << ""<<std::endl;
-        std::cout << "Czy chcesz dokonać wczytania danych z pliku czy je wygenerować?" << std::endl;
-        std::cout << "Wpisz R jeśli chcesz wczytać, G jeśli chcesz wygenerować nowe dane." << std::endl;
-        std::cin >> g;
-    }
-    if(g == "G"){
-        status=false;
-        std::cout << "Wpisz liczbę odwołań które chcesz wygenerować:" << std::endl;
-        std::cin >> counter_pages;
-        std::cout << "Wpisz liczbę ramek z których mają korzystać dane:" << std::endl;
-        std::cin >> counter_frames;
-    }
-    if(g == "R"){
-        status=true;
-        std::cout << "Wpisz liczbę ramek z których mają korzystać dane:" << std::endl;
-        std::cin >> counter_frames;
-    }
-    while( a != "F" && a != "L"){
-        std::cout << "Którym z algorytmów chcesz zastępować strony?" << std::endl;
-        std::cout << "Wpisz F jeśli FIFO, L jeśli LRU" << std::endl;
-        std::cin >> a;
-    }
-    if(a == "F"){
-        whichAlgorythm=FIFO;
-    }
-    if(a == "L"){
-        whichAlgorythm=LRU;
-    }
-
-    Data_generator stack(counter_pages,counter_frames,status);
-    return stack;
-}
 

@@ -5,11 +5,11 @@
 
 class S_LRU {
 public:
-    explicit S_LRU(Data_generator &stack);
-    void sort(Data_generator &stack);
+    explicit S_LRU(Data_generator &object);
+    void sorting(Data_generator &object);
     ~S_LRU();
 private:
-    Data_generator &stack;
+    Data_generator &object;
 
     int minTime();
 };
