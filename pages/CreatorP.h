@@ -1,5 +1,5 @@
-#ifndef ALGORYTMY_DATA_GENERATOR_H
-#define ALGORYTMY_DATA_GENERATOR_H
+#ifndef ALGORYTMY_CREATORP_H
+#define ALGORYTMY_CREATORP_H
 
 #include <iostream>
 #include <vector>
@@ -8,14 +8,14 @@
 #include <algorithm>
 #include <random>
 #include <cstring>
-#include "Page.h"
+#include "Page_P.h"
 
 
-class Data_generator {
+class CreatorP {
 public:
-    Data_generator(int quantityPages,int quantityFrames,std::string mode);
-    std::vector < Page > pagesList;
-    std::vector < Page > Qframe;
+    CreatorP(int quantityPages, int quantityFrames,int how_m_changes, std::string mode);
+    std::vector < Page_P > pagesList;
+    std::vector < Page_P > Qframe;
     std::vector <std::string> results;
 
     int how_m_changes;
@@ -24,7 +24,7 @@ public:
 
     void sFrames();
 
-    ~Data_generator();
+    ~CreatorP();
 private:
     int how_m_pages;
 

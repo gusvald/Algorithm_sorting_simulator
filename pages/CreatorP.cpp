@@ -1,6 +1,6 @@
-#include "Data_generator.h"
+#include "CreatorP.h"
 
-Data_generator::Data_generator(int quantityPages, int quantityFrames, std::string mode ): how_m_pages(quantityPages), how_m_frames(quantityFrames), mode(mode) {
+CreatorP::CreatorP(int quantityPages, int quantityFrames,int how_m_changes, std::string mode ): how_m_pages(quantityPages), how_m_frames(quantityFrames),how_m_changes(how_m_changes), mode(mode){
 
     if(mode == "R"){
         lData();
@@ -12,22 +12,22 @@ Data_generator::Data_generator(int quantityPages, int quantityFrames, std::strin
         iFrames();
     }
 }
-void Data_generator::creator(){
-    Page page;
+void CreatorP::creator(){
+    Page_P page;
 
     for(int i=0; i < how_m_pages; i++){
         page.count= rand()%9+1;
         pagesList.push_back(page);
     }
 }
-void Data_generator::iFrames(){
-    Page frame;
+void CreatorP::iFrames(){
+    Page_P frame;
     for(int j=how_m_frames; j > 0; j--){
         frame.timeWithoutChange=j;
         Qframe.push_back(frame);
     }
 }
-void Data_generator::sIData() {
+void CreatorP::sIData() {
     std::fstream file1;
 
     file1.open("../pagesList.txt", std::ios::out);
@@ -37,10 +37,10 @@ void Data_generator::sIData() {
     }
     file1.close();
 }
-void Data_generator::lData(){
+void CreatorP::lData(){
     std::fstream file1;
     std::fstream file2;
-    Page page;
+    Page_P page;
     std::string line1;
     std::string line2;
     int countFile1=0;
@@ -68,7 +68,7 @@ void Data_generator::lData(){
     file2.close();
 }
 
-void Data_generator::sData(){
+void CreatorP::sData(){
     unsigned long countFile1=0;
     std::fstream file1;
     std::fstream file2;
@@ -94,17 +94,17 @@ void Data_generator::sData(){
         result << results.at(i) << std::endl;
     }
     result<<std::endl;
-
+std::cout<<how_m_changes;
     result << "Zmiany: " << how_m_changes;
 
     result.close();
 }
 
-void Data_generator::beginSaving() {
+void CreatorP::beginSaving() {
     sData();
 }
 
-void Data_generator::sFrames() {
+void CreatorP::sFrames() {
     std::string frame;
     for(unsigned long i=0; i < Qframe.size(); i++){
         frame += "|" + std::to_string(Qframe.at(i).count) + "|";
@@ -112,7 +112,7 @@ void Data_generator::sFrames() {
     results.push_back(frame);
 }
 
-Data_generator::~Data_generator() {
+CreatorP::~CreatorP() {
 
 }
 
