@@ -5,6 +5,8 @@
 #include "P_FCFS.h"
 #include "P_SJF_NW.h"
 #include "P_SJF_W.h"
+#include <locale.h>
+
 
 enum algorythmChooser {
     FCFS = 0,
@@ -20,6 +22,7 @@ int main() {
     srand( static_cast<unsigned int>(time(nullptr)));
     bool isDone=true;
     int timer=0;
+    setlocale(LC_CTYPE, "Polish");
 
     Data_generator stack=menu();
 

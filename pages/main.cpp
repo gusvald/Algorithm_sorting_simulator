@@ -4,6 +4,7 @@
 #include "Data_generator.h"
 #include "S_FIFO.h"
 #include "S_LRU.h"
+#include <locale.h>
 
 enum algorythmChooser {
     FIFO = 0,
@@ -16,6 +17,7 @@ Data_generator menu();
 
 int main() {
     srand( static_cast<unsigned int>(time(nullptr)));
+    setlocale(LC_CTYPE, "Polish");
 
     Data_generator stack=menu();
 

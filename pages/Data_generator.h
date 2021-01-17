@@ -7,6 +7,7 @@
 #include <sstream>
 #include <algorithm>
 #include <random>
+#include <cstring>
 #include "Page.h"
 
 
