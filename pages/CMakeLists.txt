@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.15)
+project(algorytmy)
+set(CMAKE_CXX_STANDARD 14)
+add_compile_options(-Wall -Wextra)
+file(GLOB_RECURSE SOURCES LIST_DIRECTORIES true *.hpp *.cpp)
+add_executable(algorytmy main.cpp Data_generator.cpp Data_generator.h S_FIFO.cpp S_FIFO.h S_LRU.cpp S_LRU.h)

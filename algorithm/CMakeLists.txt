@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.15)
+project(algorytmy)
+set(CMAKE_CXX_STANDARD 14)
+add_compile_options(-Wall -Wextra)
+file(GLOB_RECURSE SOURCES LIST_DIRECTORIES true *.hpp *.cpp)
+add_executable(algorytmy main.cpp Data_generator.cpp Data_generator.h P_FCFS.cpp P_FCFS.h P_SJF_NW.cpp P_SJF_NW.h P_SJF_W.cpp P_SJF_W.h)
